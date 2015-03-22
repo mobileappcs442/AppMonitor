@@ -32,6 +32,7 @@ public class AppEntry {
   }
 
   public Drawable getIcon() {
+      System.out.println("helo");
     if (mIcon == null) {
       if (mApkFile.exists()) {
         mIcon = mInfo.loadIcon(mLoader.mPm);

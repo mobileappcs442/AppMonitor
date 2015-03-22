@@ -1,6 +1,16 @@
 <resources>
-    <string name="app_name">My Application</string>
+    <string name="app_name">App monitor</string>
+
+
+    <string name="title_section1">Today</string>
+    <string name="title_section2">Yesterday</string>
+    <string name="title_section3">Last week</string>
+    <string name="title_section4">Last month</string>
+    <string name="title_section5">Sorting</string>
 
     <string name="hello_world">Hello world!</string>
+
     <string name="action_settings">Settings</string>
+    <string name="activity_title">Installed Applications</string>
+    <string name="menu_configure_locale">Change language</string>
 </resources>

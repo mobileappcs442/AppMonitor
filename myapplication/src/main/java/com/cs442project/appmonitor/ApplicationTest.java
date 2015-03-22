@@ -1,4 +1,4 @@
-package com.cs442syembadi.myapplication;
+package com.cs442project.appmonitor;
 
 import android.app.Application;
 import android.test.ApplicationTestCase;

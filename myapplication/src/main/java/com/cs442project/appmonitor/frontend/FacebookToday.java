@@ -1,7 +1,9 @@
-package com.cs442project.appmonitor;
+package com.cs442project.appmonitor.frontend;
 
 import android.app.Activity;
 import android.os.Bundle;
+
+import com.cs442project.appmonitor.R;
 
 /**
  * Created by Snehal on 2/27/2015.

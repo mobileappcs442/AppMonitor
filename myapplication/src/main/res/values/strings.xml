@@ -1,6 +1,11 @@
 <resources>
     <string name="app_name">App monitor</string>
 
+    <string name="display_order_text">Order</string>
+    <string name="app_name_label">AppName</string>
+    <string name="last_time_used_label">Last Time Used</string>
+    <string name="usage_time_label">Usage Time</string>
+
 
     <string name="title_section1">Today</string>
     <string name="title_section2">Yesterday</string>

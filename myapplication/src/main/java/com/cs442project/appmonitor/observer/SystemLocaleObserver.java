@@ -23,6 +23,7 @@ public class SystemLocaleObserver extends BroadcastReceiver {
     mLoader = loader;
     IntentFilter filter = new IntentFilter(Intent.ACTION_LOCALE_CHANGED);
     mLoader.getContext().registerReceiver(this, filter);
+      System.out.println("commit");
   }
 
   @Override

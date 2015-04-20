@@ -7,10 +7,12 @@
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:id="@+id/barchart"
         android:layout_width="match_parent"
-        android:layout_height="200dp"
+        android:layout_height="250dp"
         android:padding="10dp"
         app:egFixedBarWidth="true"
-        app:egBarWidth="20dp"
+        app:egBarWidth="30dp"
+        app:egVisibleBars="4"
+        app:egShowValues="true"
         app:egLegendHeight="40dp"/>
 
     <ListView
@@ -21,7 +23,7 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_below="@+id/piechart"
-        android:layout_above="@+id/button2"
+        android:layout_above="@+id/selectDeselect"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true">
         </ListView>

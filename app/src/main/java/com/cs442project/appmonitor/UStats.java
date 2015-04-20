@@ -14,7 +14,6 @@ import java.util.List;
 /**
  * Created by User on 3/2/15.
  */
-
 public class UStats {
     private static final SimpleDateFormat dateFormat = new SimpleDateFormat("M-d-yyyy HH:mm:ss");
     public static final String TAG = UStats.class.getSimpleName();

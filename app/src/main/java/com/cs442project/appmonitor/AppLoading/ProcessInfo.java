@@ -47,10 +47,8 @@ public class ProcessInfo {
 		Log.i(LOG_TAG, "get running processes");
 
 		ActivityManager am = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
-
 		List<RunningAppProcessInfo> run = am.getRunningAppProcesses();
 		PackageManager pm = context.getPackageManager();
-
 		List<Programe> progressList = new ArrayList<Programe>();
 
 		for (ApplicationInfo appinfo : getPackagesInfo(context)) {

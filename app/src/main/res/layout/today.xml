@@ -3,61 +3,30 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
-    <org.eazegraph.lib.charts.PieChart
-        xmlns:app="http://schemas.android.com/apk/res-auto"
+
+    <org.eazegraph.lib.charts.PieChart xmlns:app="http://schemas.android.com/apk/res-auto"
         android:id="@+id/piechart"
         android:layout_width="match_parent"
-        android:layout_height="200dp"
+        android:layout_height="250dp"
         android:padding="8dp"
-
-        android:layout_below="@+id/imageView12"
-        android:layout_above="@+id/textView24" />
+        app:egDrawValueInPie="true"
+        app:egInnerValueUnit="seconds"
+        app:egShowDecimal="false"
+        app:egUseCustomInnerValue="false"
+        app:egUsePieRotation="true" />
 
     <ListView
+        android:id="@+id/TodayList"
         android:layout_width="match_parent"
         android:layout_height="430dp"
-        android:id="@+id/TodayList"
-        android:layout_weight="0.99"
+        android:layout_alignParentEnd="true"
         android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
         android:layout_alignParentStart="true"
         android:layout_below="@+id/piechart"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentBottom="true">
+        android:layout_weight="0.99">
 
     </ListView>
-    <Button
-        android:layout_width="130dp"
-        android:layout_height="25dp"
-        android:text="BarChart_TEST"
-        android:id="@+id/button2"
-        android:onClick="fbtoday"
-        android:background="@drawable/trns"
-        android:textAllCaps="false"
-        android:textSize="15dp"
-        android:layout_gravity="center_horizontal"
-        android:layout_alignParentBottom="true"
-        android:layout_toRightOf="@+id/button33"
-        android:layout_toEndOf="@+id/button33"
-        android:textAlignment="center"
-        android:visibility="invisible" />
-    <Button
-        android:layout_width="130dp"
-        android:layout_height="25dp"
-        android:text="PieChart_TEST"
-        android:id="@+id/button33"
-        android:onClick="twt_today"
-        android:background="@drawable/trns"
-        android:textAllCaps="false"
-        android:textSize="15dp"
-        android:layout_gravity="center_horizontal"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginLeft="49dp"
-        android:layout_marginStart="49dp"
-        android:textAlignment="center"
-        android:visibility="invisible" />
 
 
 </RelativeLayout>

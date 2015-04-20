@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">App monitor</string>
+    <string name="app_name">APP MONITOR</string>
 
 
     <string name="title_section1">Today</string>
@@ -9,7 +9,9 @@
     <string name="title_section5">// TEMP //</string>
 
     <string name="hello_world">Hello world!</string>
-
+    <string name="description">App Monitor is a practical, handy application monitoring tool to check the time user has spend on each installed apps.
+    Additionally, it also provides several cool features such selecting apps to monitor time, setting time limit and when you exceed the time limit,
+    you can see the notification message !</string>
     <string name="action_settings">Settings</string>
     <string name="activity_title">Installed Applications</string>
     <string name="menu_configure_locale">Change language</string>

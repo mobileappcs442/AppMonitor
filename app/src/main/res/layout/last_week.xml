@@ -7,14 +7,23 @@
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:id="@+id/cubiclinechart"
         android:layout_width="match_parent"
-        android:layout_height="200dp"
+        android:layout_height="250dp"
+
         app:egUseCubic="true"
         app:egUseOverlapFill="true"
         app:egCurveSmoothness="0.4"
+        app:egShowValueIndicator="true"
+        app:egIndicatorTextUnit="Sec."
+        app:egIndicatorShadowColor="@color/light_blue"
+        app:egIndicatorLineColor="@color/light_red"
+        app:egIndicatorTextSize="12dp"
 
         app:egLegendHeight="40dp"
-        android:layout_marginLeft="7dp"
-        android:layout_marginRight="7dp" />
+        app:egScalingFactor="1.0"
+        app:egShowStandardValue="true"
+
+        android:layout_marginLeft="1dp"
+        android:layout_marginRight="1dp" />
 
     <ListView
         android:layout_width="match_parent"
@@ -24,7 +33,7 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_below="@+id/piechart"
-        android:layout_above="@+id/button2"
+        android:layout_above="@+id/selectDeselect"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true">
 

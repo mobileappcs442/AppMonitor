@@ -17,20 +17,23 @@
 package com.cs442project.appmonitor.AppLoading;
 
 import android.graphics.drawable.Drawable;
+import android.widget.ArrayAdapter;
 
-/**
- * details of installed processes ,including
- * icon,packagename,pid,uid,processname
- * 
- * @author andrewleo
- */
+import java.util.ArrayList;
+
+
 public class Programe implements Comparable<Programe> {
 	private Drawable icon;
 	private String processName;
 	private String packageName;
 	private int pid;
 	private int uid;
+    private ArrayList<String> list;
+    private boolean selected;
 
+    public Object getItem(int position) {
+        return list.get(position);
+    }
 	public int getUid() {
 		return uid;
 	}
@@ -76,5 +79,12 @@ public class Programe implements Comparable<Programe> {
 	public int compareTo(Programe arg0) {
 		return (this.getProcessName().compareTo(arg0.getProcessName()));
 	}
+
+    public void setSelected(boolean selected) {
+        this.selected = selected;
+    }
+    public boolean isSelected() {
+        return selected;
+    }
 
 }

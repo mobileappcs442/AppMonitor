@@ -2,17 +2,20 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     coreApp="true"
-    package="com.cs442project.appmonitor" >
+    package="com.cs442project.appmonitor">
 
-    <uses-permission android:name="android.permission.PACKAGE_USAGE_STATS"
+    <uses-permission
+        android:name="android.permission.PACKAGE_USAGE_STATS"
         tools:ignore="ProtectedPermissions" />
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/AppTheme">
+
+
         <activity
-            android:name=".SplashScreen"
+            android:name="com.cs442project.appmonitor.SplashScreen"
             android:configChanges="locale"
             android:label="@string/app_name">
             <intent-filter>
@@ -35,15 +38,34 @@
         </activity>
 
         <activity
-            android:name=".FacebookToday"
+            android:name=".About"
             android:label="@string/app_name">
 
         </activity>
         <activity
-            android:name=".TwitterToday"
+            android:name=".AppLimit"
             android:label="@string/app_name">
 
         </activity>
+        <activity
+            android:name=".SettingPage"
+            android:label="@string/app_name">
+
+        </activity>
+
+        <service
+            android:name=".AppService"
+            android:label="@string/app_name">
+
+        </service>
+
+        <receiver android:name=".MyWidgetProvider" >
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+            <meta-data android:name="android.appwidget.provider"
+                android:resource="@xml/widget" />
+        </receiver>
     </application>
 
 </manifest>

@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <PreferenceCategory android:title="General Setting">
+
+        <PreferenceScreen
+            android:icon="@drawable/selectapps"
+            android:key="select"
+            android:summary="Select or Deselect apps to monitor"
+            android:title="Select new apps to monitor">
+
+            <intent
+                android:action="android.intent.action.VIEW"
+                android:targetClass="com.cs442project.appmonitor.MainScreen"
+                android:targetPackage="com.cs442project.appmonitor" />
+
+        </PreferenceScreen>
+
+        <PreferenceScreen
+            android:icon="@drawable/timer"
+            android:key="timer"
+            android:summary="Set Time limit for daily app usage"
+            android:title="Set Timer">
+
+            <intent
+                android:action="android.intent.action.VIEW"
+                android:targetClass="com.cs442project.appmonitor.AppLimit"
+                android:targetPackage="com.cs442project.appmonitor" />
+
+        </PreferenceScreen>
+
+        <PreferenceScreen
+            android:icon="@drawable/icon"
+            android:key="about"
+            android:summary="About 'App Monitor'"
+            android:title="About">
+
+            <intent
+                android:action="android.intent.action.VIEW"
+                android:targetClass="com.cs442project.appmonitor.About"
+                android:targetPackage="com.cs442project.appmonitor" />
+
+        </PreferenceScreen>
+
+
+    </PreferenceCategory>
+
+    <PreferenceCategory android:title="Notification Setting">
+
+        <RingtonePreference
+            android:ringtoneType="notification"
+            android:showDefault="true"
+            android:showSilent="true"
+            android:summary="Manage notification tone"
+            android:title="Notification Tone" />
+
+        <CheckBoxPreference
+            android:defaultValue="true"
+            android:key="do_vibrate"
+            android:title="Vibrate">
+
+        </CheckBoxPreference>
+
+        <com.cs442project.appmonitor.Preferences.VibrationPreference
+            android:defaultValue="0"
+            android:dependency="do_vibrate"
+            android:entries="@array/vibration_pattern_entries"
+            android:entryValues="@array/vibration_pattern_values"
+            android:key="vibration_pattern_index"
+            android:title="Vibration Type" />
+
+        <!--<com.cs442project.appmonitor.Preferences.TimePreference-->
+            <!--android:key="timePrefA_Key"-->
+            <!--android:title="Time"/>-->
+
+
+
+    </PreferenceCategory>
+
+</PreferenceScreen>
+

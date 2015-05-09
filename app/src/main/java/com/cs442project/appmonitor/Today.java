@@ -159,14 +159,13 @@ public class Today extends Fragment {
         @TargetApi(Build.VERSION_CODES.LOLLIPOP)
         UsageStatsAdapter() {
             Calendar cal = Calendar.getInstance();
-            cal.add(Calendar.DAY_OF_YEAR, -1);
+            cal.add(Calendar.DAY_OF_WEEK, -1);
 
             System.out.println("**Today****cal.getTime()*****" + cal.getTime() + "***getTimeMillis()***" + cal.getTimeInMillis());
             System.out.println("**Today**System.currentTimeMillis()**** " + System.currentTimeMillis());
 
             //final List<UsageStats>
-            stats = mUsageStatsManager.queryUsageStats(UsageStatsManager.INTERVAL_DAILY,
-                    cal.getTimeInMillis(), System.currentTimeMillis());
+            stats = mUsageStatsManager.queryUsageStats(UsageStatsManager.INTERVAL_DAILY, cal.getTimeInMillis(), System.currentTimeMillis());
 
             System.out.println("---------------------" + stats);
 

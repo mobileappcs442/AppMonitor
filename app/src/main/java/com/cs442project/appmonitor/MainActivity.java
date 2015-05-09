@@ -132,25 +132,23 @@ public class MainActivity extends ActionBarActivity implements ActionBar.TabList
         public Fragment getItem(int i) {
             switch (i) {
                 case 0:
-                    //Fragement for Android Tab
+
                     return new Today();
                 case 1:
-                    //Fragment for Ios Tab
-                    return new Yesterday();
-                case 2:
-                    //Fragment for Windows Tab
                     return new LastWeek();
-                case 3:
-                    //Fragment for Windows Tab
+//                    return new Yesterday();
+                case 2:
                     return new LastMonth();
+
+                case 3:
+                    return new Sorting();
                 //case 4:
-                    //Fragment for Windows Tab
-                    //return new Sorting();
+
+
+
             }
             return null;
-            // getItem is called to instantiate the fragment for the given page.
-            // Return a PlaceholderFragment (defined as a static inner class below).
-            //return PlaceholderFragment.newInstance(position + 1);
+
         }
 
         @Override
@@ -165,13 +163,14 @@ public class MainActivity extends ActionBarActivity implements ActionBar.TabList
                 case 0:
                     return getString(R.string.title_section1).toUpperCase(l);
                 case 1:
-                    return getString(R.string.title_section2).toUpperCase(l);
-                case 2:
                     return getString(R.string.title_section3).toUpperCase(l);
-                case 3:
+                    //return getString(R.string.title_section2).toUpperCase(l);
+                case 2:
                     return getString(R.string.title_section4).toUpperCase(l);
+                case 3:
+                    return getString(R.string.title_section5).toUpperCase(l);
 //                case 4:
-//                    return getString(R.string.title_section5).toUpperCase(l);
+
             }
             return null;
         }

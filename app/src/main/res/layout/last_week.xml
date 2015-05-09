@@ -11,17 +11,17 @@
 
         app:egUseCubic="true"
         app:egUseOverlapFill="true"
-        app:egCurveSmoothness="0.4"
+
         app:egShowValueIndicator="true"
         app:egIndicatorTextUnit="Sec."
         app:egIndicatorShadowColor="@color/light_blue"
         app:egIndicatorLineColor="@color/light_red"
         app:egIndicatorTextSize="12dp"
-
+        app:egUseDynamicScaling="true"
         app:egLegendHeight="40dp"
         app:egScalingFactor="1.0"
         app:egShowStandardValue="true"
-
+        app:egXAxisStroke="5dp"
         android:layout_marginLeft="1dp"
         android:layout_marginRight="1dp" />
 

@@ -6,7 +6,7 @@
     <string name="title_section2">Yesterday</string>
     <string name="title_section3">Last week</string>
     <string name="title_section4">Last month</string>
-    <string name="title_section5">// TEMP //</string>
+    <string name="title_section5">Total Usage</string>
 
     <string name="hello_world">Hello world!</string>
     <string name="description">App Monitor is a practical, handy application monitoring tool to check the time user has spend on each installed apps.

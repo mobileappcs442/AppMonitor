@@ -2,11 +2,15 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     coreApp="true"
+    android:versionCode="2"
+    android:versionName="1.1"
     package="com.cs442project.appmonitor">
 
     <uses-permission
         android:name="android.permission.PACKAGE_USAGE_STATS"
         tools:ignore="ProtectedPermissions" />
+    <uses-permission android:name="android.permission.VIBRATE"/>
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -25,7 +29,6 @@
             </intent-filter>
         </activity>
         <activity
-
             android:name=".MainActivity"
             android:label="@string/app_name">
 
@@ -53,6 +56,9 @@
 
         </activity>
 
+
+
+
         <service
             android:name=".AppService"
             android:label="@string/app_name">
@@ -62,10 +68,18 @@
         <receiver android:name=".MyWidgetProvider" >
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+                <action android:name="com.cs442project.appmonitor.MyWidgetProvider.ACTION_WIDGET_LIMIT"/>
+                <action android:name="com.cs442project.appmonitor.MyWidgetProvider.ACTION_WIDGET_SELECTAPP"/>
+                <action android:name="com.cs442project.appmonitor.MyWidgetProvider.ACTION_WIDGET_DAILY"/>
+                <action android:name="com.cs442project.appmonitor.MyWidgetProvider.ACTION_WIDGET_WEEKLY"/>
+                <action android:name="com.cs442project.appmonitor.MyWidgetProvider.ACTION_WIDGET_MONTHLY"/>
+                <action android:name="com.cs442project.appmonitor.MyWidgetProvider.ACTION_WIDGET_ALLUSAGE"/>
             </intent-filter>
             <meta-data android:name="android.appwidget.provider"
                 android:resource="@xml/widget" />
         </receiver>
+
+
     </application>
 
 </manifest>

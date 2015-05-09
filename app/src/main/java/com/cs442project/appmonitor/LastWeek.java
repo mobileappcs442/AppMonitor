@@ -92,10 +92,12 @@ public class LastWeek extends Fragment {
             System.out.println("***label name**" + mAdapter.mAppLabelMap.get(mAdapter.mPackageStats.get(i).getPackageName()));
 
             float duration = (int) mAdapter.mPackageStats.get(i).getTotalTimeInForeground() / 1000;
+            String appname = mAdapter.mAppLabelMap.get(mAdapter.mPackageStats.get(i).getPackageName());
+
+            series.addPoint(new ValueLinePoint(appname, duration));
+            series.addPoint(new ValueLinePoint(appname, duration));
 
 
-
-            series.addPoint(new ValueLinePoint(mAdapter.mAppLabelMap.get(mAdapter.mPackageStats.get(i).getPackageName()), duration));
             mCubicValueLineChart.addSeries(series);
 
 

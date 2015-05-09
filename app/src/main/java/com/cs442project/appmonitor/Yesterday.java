@@ -28,13 +28,11 @@ import com.cs442project.appmonitor.comparator.AppNameComparator;
 import com.cs442project.appmonitor.comparator.LastTimeUsedComparator;
 import com.cs442project.appmonitor.comparator.UsageTimeComparator;
 
-import org.eazegraph.lib.charts.PieChart;
+
 import org.eazegraph.lib.charts.StackedBarChart;
 import org.eazegraph.lib.models.BarModel;
-import org.eazegraph.lib.models.PieModel;
 import org.eazegraph.lib.models.StackedBarModel;
 
-import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
@@ -59,6 +57,7 @@ public class Yesterday extends Fragment {
     StackedBarModel stkBARModel;
     StackedBarModel stkBARModel1;
 
+    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
@@ -71,12 +70,11 @@ public class Yesterday extends Fragment {
         sp = this.getActivity().getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
         getSavedApps.clear();
         int size = sp.getInt("Status_size", 0);
-        for(int i=0;i<size;i++)
-        {
+        for (int i = 0; i < size; i++) {
             getSavedApps.add(sp.getString("Status_" + i, null));
         }
-        for(int i=0; i<getSavedApps.size(); i++){
-            System.out.println("******Saved Package LiSt: " +getSavedApps.get(i));
+        for (int i = 0; i < getSavedApps.size(); i++) {
+            System.out.println("******Saved Package LiSt: " + getSavedApps.get(i));
         }
 
         ListView listView = (ListView) yesterday.findViewById(R.id.YestList);
@@ -95,11 +93,11 @@ public class Yesterday extends Fragment {
 
 
             float duration = (float) mAdapter.mPackageStats.get(i).getTotalTimeInForeground() / 1000;
-            float duration1 = (float) ((mAdapter.mPackageStats.get(i).getTotalTimeInForeground() )/ 1000) - rnd.nextFloat();
+            float duration1 = (float) ((mAdapter.mPackageStats.get(i).getTotalTimeInForeground()) / 1000) - rnd.nextFloat();
 
             stkBARModel = new StackedBarModel(mAdapter.mAppLabelMap.get(mAdapter.mPackageStats.get(i).getPackageName()));
-            stkBARModel.addBar(new BarModel(duration ,Color.rgb(255, rnd.nextInt(), rnd.nextInt())));
-            stkBARModel.addBar(new BarModel(duration1 ,Color.rgb(205, rnd.nextInt(), rnd.nextInt())));
+            stkBARModel.addBar(new BarModel(duration, Color.rgb(255, rnd.nextInt(), rnd.nextInt())));
+            stkBARModel.addBar(new BarModel(duration1, Color.rgb(205, rnd.nextInt(), rnd.nextInt())));
 
             mStackedBarChart.addBar(stkBARModel);
 
@@ -128,6 +126,7 @@ public class Yesterday extends Fragment {
         TextView lastTimeUsed;
         ImageView imgViAppIcon;
     }
+
     @TargetApi(Build.VERSION_CODES.KITKAT)
     class UsageStatsAdapter extends BaseAdapter {
         // Constants defining order for display order
@@ -148,10 +147,10 @@ public class Yesterday extends Fragment {
         @TargetApi(Build.VERSION_CODES.LOLLIPOP)
         UsageStatsAdapter() {
             Calendar cal = Calendar.getInstance();
-            cal.add(Calendar.DAY_OF_YEAR, -2);
+            cal.add(Calendar.DAY_OF_WEEK, -1);
 
-            System.out.println("**Yday****cal.getTime()*****"+cal.getTime()+"***getTimeMillis()***"+cal.getTimeInMillis());
-            System.out.println("**Yday**System.currentTimeMillis()**** "+System.currentTimeMillis());
+            System.out.println("**Yday****cal.getTime()*****" + cal.getTime() + "***getTimeMillis()***" + cal.getTimeInMillis());
+            System.out.println("**Yday**System.currentTimeMillis()**** " + System.currentTimeMillis());
 
             //final List<UsageStats>
             stats = mUsageStatsManager.queryUsageStats(UsageStatsManager.INTERVAL_DAILY,
@@ -195,14 +194,14 @@ public class Yesterday extends Fragment {
                         System.out.println("*****getSavedApps.get(i)*****"+getSavedApps.get(i).toString());
                         System.out.println("*****pkgStats.getPackageName()*****"+pkgStats.getPackageName().toString());*/
 
-                    if(getSavedApps.contains(pkgStats.getPackageName().toString())){
+                    if (getSavedApps.contains(pkgStats.getPackageName().toString())) {
                         //System.out.println("*** adding to map "+getSavedApps.get(j)+" & "+pkgStats.getPackageName());
                         if (existingStats == null) {
                             map.put(pkgStats.getPackageName(), pkgStats);
                         } else {
                             existingStats.add(pkgStats);
                         }
-                    }else System.out.println("****no match found");
+                    } else System.out.println("****no match found");
                     //}
 
 
@@ -246,22 +245,22 @@ public class Yesterday extends Fragment {
             convertView = mInflater.inflate(R.layout.list_item_icon_duration, null);
             holder = (AppViewHolder) convertView.getTag();
 
-            if(holder==null) {
+            if (holder == null) {
                 holder = new AppViewHolder();
                 //holder.imgViAppIcon = (ImageView) convertView.findViewById(R.id.icon);
                 convertView.setTag(holder);
             }
 
             holder.pkgName = (TextView) convertView.findViewById(R.id.text);
-            holder.imgViAppIcon = (ImageView)convertView.findViewById(R.id.icon);
+            holder.imgViAppIcon = (ImageView) convertView.findViewById(R.id.icon);
             holder.usageTime = (TextView) convertView.findViewById(R.id.duration);
 
             UsageStats pkgStats = mPackageStats.get(position);
 
             if (pkgStats != null) {
-                for(int i=0;i<getSavedApps.size();i++){
-                    if(getSavedApps.get(i).toString().equals(pkgStats.getPackageName().toString())){
-                        System.out.println("*** equal package found "+getSavedApps.get(i)+" & "+pkgStats.getPackageName());
+                for (int i = 0; i < getSavedApps.size(); i++) {
+                    if (getSavedApps.get(i).toString().equals(pkgStats.getPackageName().toString())) {
+                        System.out.println("*** equal package found " + getSavedApps.get(i) + " & " + pkgStats.getPackageName());
                         String label = mAppLabelMap.get(pkgStats.getPackageName());
                         holder.pkgName.setText(label);
                         try {

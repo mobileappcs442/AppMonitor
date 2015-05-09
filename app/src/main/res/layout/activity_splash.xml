@@ -10,8 +10,9 @@
         android:layout_height="180dp"
         android:id="@+id/imageView"
         android:background="@drawable/splash1"
-        android:layout_marginTop="102dp"
+        android:layout_marginTop="172dp"
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
+
 </RelativeLayout>

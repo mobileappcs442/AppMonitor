@@ -5,6 +5,7 @@ import android.app.Activity;
 /**
  * Created by Snehal on 3/26/2015.
  */
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -19,7 +20,7 @@ import java.util.ArrayList;
 public class SplashScreen extends Activity {
 
     // Splash screen timer
-    private static int SPLASH_TIME_OUT = 2000;
+    private static int SPLASH_TIME_OUT = 1500;
     public static final String PREFS_NAME = "MainScreen";
     SharedPreferences sp;
     ArrayList<String> getSavedApps = new ArrayList<String>();
@@ -30,6 +31,8 @@ public class SplashScreen extends Activity {
         super.onCreate(savedInstanceState);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_splash);
+
+        //ProgressDialog.show(getApplicationContext(), "WAIT", "LOADING");
 
         sp = getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
         getSavedApps.clear();

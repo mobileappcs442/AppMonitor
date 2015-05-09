@@ -123,8 +123,6 @@ public class MainScreen extends Activity {
         button_calc = (Button) findViewById(R.id.button);
         button_calc.setEnabled(false);
 
-
-
         len = lstViProgramme.getCount();
         System.out.println("--------------------->LENGTH OF LISTVIEW: " + len);
 

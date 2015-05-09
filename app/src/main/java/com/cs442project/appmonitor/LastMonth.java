@@ -91,6 +91,7 @@ public class LastMonth extends Fragment {
             System.out.println("***label name**" + mAdapter.mAppLabelMap.get(mAdapter.mPackageStats.get(i).getPackageName()));
 
             float duration = (int) mAdapter.mPackageStats.get(i).getTotalTimeInForeground() / 1000;
+
             //mPieChart.addPieSlice(new PieModel(mAdapter.mAppLabelMap.get(mAdapter.mPackageStats.get(i).getPackageName()), duration, Color.rgb(255, rnd.nextInt(), rnd.nextInt())));
             mBarChart.addBar(new BarModel(mAdapter.mAppLabelMap.get(mAdapter.mPackageStats.get(i).getPackageName()), duration, Color.rgb(255, rnd.nextInt(), rnd.nextInt())));
 

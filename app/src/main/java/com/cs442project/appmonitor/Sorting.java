@@ -4,8 +4,6 @@ import android.annotation.TargetApi;
 import android.app.usage.UsageStats;
 import android.app.usage.UsageStatsManager;
 import android.content.Context;
-import android.content.Intent;
-import android.content.SharedPreferences;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
@@ -20,21 +18,24 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.cs442project.appmonitor.AppLoading.ProcessInfo;
 import com.cs442project.appmonitor.comparator.AppNameComparator;
 import com.cs442project.appmonitor.comparator.LastTimeUsedComparator;
 import com.cs442project.appmonitor.comparator.UsageTimeComparator;
 
 import org.eazegraph.lib.charts.PieChart;
+import org.eazegraph.lib.charts.ValueLineChart;
+import org.eazegraph.lib.models.BarModel;
+
+import org.eazegraph.lib.charts.BarChart;
+
 import org.eazegraph.lib.models.PieModel;
+import org.eazegraph.lib.models.ValueLinePoint;
+import org.eazegraph.lib.models.ValueLineSeries;
 
-
-import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
@@ -45,57 +46,59 @@ import java.util.Random;
  * Created by Snehal on 2/27/2015.
  */
 public class Sorting extends Fragment {
-
     private static final String TAG = "UsageStatsActivity";
     private static final boolean localLOGV = false;
     private UsageStatsManager mUsageStatsManager;
     private LayoutInflater mInflater;
     private UsageStatsAdapter mAdapter;
     private PackageManager mPm;
-    private ProcessInfo processInfo;
-    SharedPreferences sp;
-    ArrayList<String> getSavedApps = new ArrayList<String>();
-    public static final String PREFS_NAME = "MainScreen";
     PieChart mPieChart;
 
-
+    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        View today = inflater.inflate(R.layout.today, container, false);
-
+        View all = inflater.inflate(R.layout.sorting, container, false);
+        //((TextView) last_month.findViewById(R.id.textView)).setText("Same UI as 'TODAY' tab");
         mUsageStatsManager = (UsageStatsManager) getActivity().getSystemService(Context.USAGE_STATS_SERVICE);
         mInflater = (LayoutInflater) getActivity().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         mPm = getActivity().getPackageManager();
 
-        sp = this.getActivity().getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
-        getSavedApps.clear();
-        int size = sp.getInt("Status_size", 0);
-        for (int i = 0; i < size; i++) {
-            getSavedApps.add(sp.getString("Status_" + i, null));
-        }
-        for (int i = 0; i < getSavedApps.size(); i++) {
-            System.out.println("******Saved Package LiSt: " + getSavedApps.get(i));
-        }
-
-        ListView listView = (ListView) today.findViewById(R.id.TodayList);
+        ListView listView = (ListView) all.findViewById(R.id.LastMonthList);
         mAdapter = new UsageStatsAdapter();
         listView.setAdapter(mAdapter);
 
-        Random rand = new Random();
-
-        mPieChart = (PieChart) today.findViewById(R.id.piechart);
+//        BarChart mBarChart = (BarChart) last_month.findViewById(R.id.barchart);
+//
+//        mBarChart.addBar(new BarModel("1", 2.3f, 0xFF123456));
+//        mBarChart.addBar(new BarModel("2",2.f,  0xFF343456));
+//        mBarChart.addBar(new BarModel("3",3.3f, 0xFF563456));
+//        mBarChart.addBar(new BarModel("4",1.1f, 0xFF873F56));
+//        mBarChart.addBar(new BarModel("5",2.7f, 0xFF56B7F1));
+//        mBarChart.addBar(new BarModel("6",2.f,  0xFF343456));
+//        mBarChart.addBar(new BarModel("7",0.4f, 0xFF1FF4AC));
+//        mBarChart.addBar(new BarModel("8",4.f,  0xFF1BA4E6));
+//
+//        mBarChart.startAnimation();
+        mPieChart = (PieChart) all.findViewById(R.id.piechart);
         mPieChart.startAnimation();
-
-        System.out.println("***mAdapter.mPackageStats.size()***" + mAdapter.mPackageStats.size());
-
         for (int i = 0; i < mAdapter.mPackageStats.size(); i++) {
             Random rnd = new Random();
             //int color = Color.argb(rnd.nextInt(256), rnd.nextInt(256), rnd.nextInt(256), rnd.nextInt(256));
             System.out.println("***pack name**" + mAdapter.mPackageStats.get(i).getPackageName());
             System.out.println("***label name**" + mAdapter.mAppLabelMap.get(mAdapter.mPackageStats.get(i).getPackageName()));
 
+
             int duration = (int) mAdapter.mPackageStats.get(i).getTotalTimeInForeground() / 1000;
+
+//            String hms = String.format("%02d:%02d:%02d",
+//                    TimeUnit.MILLISECONDS.toHours(duration),
+//                    TimeUnit.MILLISECONDS.toMinutes(duration) -
+//                            TimeUnit.HOURS.toMinutes(TimeUnit.MILLISECONDS.toHours(duration)),
+//                    TimeUnit.MILLISECONDS.toSeconds(duration) -
+//                            TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(duration)));
+//            float hmsINT = Float.parseFloat(hms);
+//            System.out.println("$"+hmsINT);
             mPieChart.addPieSlice(new PieModel(mAdapter.mAppLabelMap.get(mAdapter.mPackageStats.get(i).getPackageName()), duration, Color.rgb(255, rnd.nextInt(), rnd.nextInt())));
 
             this.mPieChart.setOnFocusChangeListener(new View.OnFocusChangeListener() {
@@ -109,18 +112,15 @@ public class Sorting extends Fragment {
             System.out.println("***duration***" + duration);
         }
 
+        return all;
 
-        return today;
     }
 
-    // View Holder used when displaying views
     static class AppViewHolder {
         TextView pkgName;
         TextView usageTime;
-        TextView lastTimeUsed;
         ImageView imgViAppIcon;
     }
-
     @TargetApi(Build.VERSION_CODES.KITKAT)
     class UsageStatsAdapter extends BaseAdapter {
         // Constants defining order for display order
@@ -129,81 +129,53 @@ public class Sorting extends Fragment {
         private static final int _DISPLAY_ORDER_APP_NAME = 2;
 
         private int mDisplayOrder = _DISPLAY_ORDER_USAGE_TIME;
-
         private LastTimeUsedComparator mLastTimeUsedComparator = new LastTimeUsedComparator();
         private UsageTimeComparator mUsageTimeComparator = new UsageTimeComparator();
         private AppNameComparator mAppLabelComparator;
-
-        public final ArrayMap<String, String> mAppLabelMap = new ArrayMap<>();
-        public final ArrayList<UsageStats> mPackageStats = new ArrayList<>();
-        public List<UsageStats> stats;
+        private final ArrayMap<String, String> mAppLabelMap = new ArrayMap<>();
+        private final ArrayList<UsageStats> mPackageStats = new ArrayList<>();
 
         @TargetApi(Build.VERSION_CODES.LOLLIPOP)
         UsageStatsAdapter() {
             Calendar cal = Calendar.getInstance();
-            cal.add(Calendar.DAY_OF_YEAR, -1);
+            cal.add(Calendar.DAY_OF_YEAR, -5);
 
-            System.out.println("**Today****cal.getTime()*****" + cal.getTime() + "***getTimeMillis()***" + cal.getTimeInMillis());
-            System.out.println("**Today**System.currentTimeMillis()**** " + System.currentTimeMillis());
+            final List<UsageStats> stats =
+                    mUsageStatsManager.queryUsageStats(UsageStatsManager.INTERVAL_MONTHLY,
+                            cal.getTimeInMillis(), System.currentTimeMillis());
 
-            //final List<UsageStats>
-            stats = mUsageStatsManager.queryUsageStats(UsageStatsManager.INTERVAL_DAILY,
-                    cal.getTimeInMillis(), System.currentTimeMillis());
-
-            System.out.println("---------------------" + stats);
             for (UsageStats usg : stats) {
-//                System.out.println("***stats count "+stats.size());
-//                System.out.println("********************");
-//                System.out.println("" + usg.getPackageName());
-//                System.out.println("First time: " + usg.getFirstTimeStamp());
-//                System.out.println("Last time :" + usg.getLastTimeStamp());
-//                System.out.println("Total Time: " + usg.getTotalTimeInForeground());
-//                System.out.println(usg.getLastTimeUsed());
-//                System.out.println("********************");
-                //mPieChart.addPieSlice(new PieModel("", usg.getTotalTimeInForeground(), Color.parseColor(color)));
+                System.out.println("---------------------");
+                System.out.println("" + usg.getPackageName());
+                System.out.println("First time: " + usg.getFirstTimeStamp());
+                System.out.println("Last time :" + usg.getLastTimeStamp());
+                System.out.println("Total Time: " + usg.getTotalTimeInForeground());
+                System.out.println(usg.getLastTimeUsed());
+                System.out.println("---------------------");
 
             }
-
-            //mPieChart.startAnimation();
-
             if (stats == null) {
                 return;
             }
 
             ArrayMap<String, UsageStats> map = new ArrayMap<>();
-
             final int statCount = stats.size();
             for (int i = 0; i < statCount; i++) {
                 final UsageStats pkgStats = stats.get(i);
+
                 // load application labels for each application
                 try {
                     ApplicationInfo appInfo = mPm.getApplicationInfo(pkgStats.getPackageName(), 0);
                     String label = appInfo.loadLabel(mPm).toString();
                     mAppLabelMap.put(pkgStats.getPackageName(), label);
 
-                    UsageStats existingStats = map.get(pkgStats.getPackageName());
-
-                    /*for(int j=0;j<getSavedApps.size();j++){
-                        System.out.println("**********4");
-                        System.out.println("*****getSavedApps.get(i)*****"+getSavedApps.get(i).toString());
-                        System.out.println("*****pkgStats.getPackageName()*****"+pkgStats.getPackageName().toString());*/
-
-                    if (getSavedApps.contains(pkgStats.getPackageName().toString())) {
-                        //System.out.println("*** adding to map "+getSavedApps.get(j)+" & "+pkgStats.getPackageName());
-                        if (existingStats == null) {
-                            map.put(pkgStats.getPackageName(), pkgStats);
-                        } else {
-                            existingStats.add(pkgStats);
-                        }
-                    } else System.out.println("****no match found");
-                    //}
-
-
-                    /*if (existingStats == null) {
+                    UsageStats existingStats =
+                            map.get(pkgStats.getPackageName());
+                    if (existingStats == null) {
                         map.put(pkgStats.getPackageName(), pkgStats);
                     } else {
                         existingStats.add(pkgStats);
-                    }*/
+                    }
 
                 } catch (PackageManager.NameNotFoundException e) {
                     // This package may be gone.
@@ -236,46 +208,38 @@ public class Sorting extends Fragment {
         public View getView(int position, View convertView, ViewGroup parent) {
 
             AppViewHolder holder;
-            convertView = mInflater.inflate(R.layout.list_item_icon_duration, null);
-            holder = (AppViewHolder) convertView.getTag();
+            if (convertView == null) {
+                convertView = mInflater.inflate(R.layout.list_item_icon_duration, null);
 
-            if (holder == null) {
                 holder = new AppViewHolder();
-                //holder.imgViAppIcon = (ImageView) convertView.findViewById(R.id.icon);
+                holder.pkgName = (TextView) convertView.findViewById(R.id.text);
+                //holder.lastTimeUsed = (TextView) convertView.findViewById(R.id.last_time_used);
+                holder.usageTime = (TextView) convertView.findViewById(R.id.duration);
+                holder.imgViAppIcon = (ImageView) convertView.findViewById(R.id.icon);
                 convertView.setTag(holder);
+            } else {
+
+                holder = (AppViewHolder) convertView.getTag();
             }
 
-            holder.pkgName = (TextView) convertView.findViewById(R.id.text);
-            holder.lastTimeUsed = (TextView) convertView.findViewById(R.id.text1);
-            holder.usageTime = (TextView) convertView.findViewById(R.id.duration);
-            holder.imgViAppIcon = (ImageView)convertView.findViewById(R.id.icon);
-
             UsageStats pkgStats = mPackageStats.get(position);
-
             if (pkgStats != null) {
-                for (int i = 0; i < getSavedApps.size(); i++) {
-                    if (getSavedApps.get(i).toString().equals(pkgStats.getPackageName().toString())) {
-
-                        System.out.println("*** equal package found " + getSavedApps.get(i) + " & " + pkgStats.getPackageName());
-                        String label = mAppLabelMap.get(pkgStats.getPackageName());
-                        try {
-                            Drawable icon = mPm.getApplicationIcon(pkgStats.getPackageName());
-                            holder.imgViAppIcon.setImageDrawable(icon);
-                        } catch (PackageManager.NameNotFoundException e) {
-                            e.printStackTrace();
-                        }
-                        holder.pkgName.setText(label);
-                        holder.lastTimeUsed.setText(DateUtils.formatSameDayTime(pkgStats.getLastTimeUsed(), System.currentTimeMillis(), DateFormat.MEDIUM, DateFormat.MEDIUM));
-                        holder.usageTime.setText(DateUtils.formatElapsedTime(pkgStats.getTotalTimeInForeground() / 1000));
-
-                        convertView.setTag(holder);
-                    }
+                String label = mAppLabelMap.get(pkgStats.getPackageName());
+                holder.pkgName.setText(label);
+                try {
+                    Drawable icon = mPm.getApplicationIcon(pkgStats.getPackageName());
+                    holder.imgViAppIcon.setImageDrawable(icon);
+                } catch (PackageManager.NameNotFoundException e) {
+                    e.printStackTrace();
                 }
+                holder.usageTime.setText(
+                        DateUtils.formatElapsedTime(pkgStats.getTotalTimeInForeground() / 1000));
             } else {
                 Log.w(TAG, "No usage stats info for package:" + position);
             }
             return convertView;
         }
+
         void sortList(int sortOrder) {
             if (mDisplayOrder == sortOrder) {
                 // do nothing
@@ -299,5 +263,4 @@ public class Sorting extends Fragment {
             notifyDataSetChanged();
         }
     }
-
 }
